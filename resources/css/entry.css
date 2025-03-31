@@ -1,0 +1,19 @@
+.richie-entry {
+    @apply prose dark:prose-invert max-w-none prose-a:text-blue-500 dark:prose-a:text-blue-400;
+
+    p:empty {
+        display: none;
+    }
+
+    *:first-child {
+        margin-top: 0;
+    }
+
+    *:last-child {
+        margin-bottom: 0;
+    }
+
+    .richie-block + .richie-block {
+        margin-top: 1rem;
+    }
+}

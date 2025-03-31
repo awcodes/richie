@@ -1,0 +1,69 @@
+.richie-grid {
+    @apply grid gap-4;
+
+    .richie-grid-column {
+        > * + * {
+            margin-block-start: 1rem;
+        }
+    }
+}
+
+@media (max-width: theme('screens.sm')) {
+    .richie-grid[data-stack-at="sm"] {
+        grid-template-columns: 1fr !important;
+
+        .richie-grid-column {
+            grid-column: span 1 !important;
+        }
+    }
+}
+
+@media (max-width: theme('screens.md')) {
+    .richie-grid[data-stack-at="md"] {
+        grid-template-columns: 1fr !important;
+
+        .richie-grid-column {
+            grid-column: span 1 !important;
+        }
+    }
+}
+
+@media (max-width: theme('screens.lg')) {
+    .richie-grid[data-stack-at="lg"] {
+        grid-template-columns: 1fr !important;
+
+        .richie-grid-column {
+            grid-column: span 1 !important;
+        }
+    }
+}
+
+@container (max-width: theme('screens.sm')) {
+    .richie-grid[data-stack-at="sm"] {
+        grid-template-columns: 1fr !important;
+
+        .richie-grid-column {
+            grid-column: span 1 !important;
+        }
+    }
+}
+
+@container (max-width: theme('screens.md')) {
+    .richie-grid[data-stack-at="md"] {
+        grid-template-columns: 1fr !important;
+
+        .richie-grid-column {
+            grid-column: span 1 !important;
+        }
+    }
+}
+
+@container (max-width: theme('screens.lg')) {
+    .richie-grid[data-stack-at="lg"] {
+        grid-template-columns: 1fr !important;
+
+        .richie-grid-column {
+            grid-column: span 1 !important;
+        }
+    }
+}

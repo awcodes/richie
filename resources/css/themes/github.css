@@ -1,0 +1,175 @@
+:root {
+    --color-richie-comment: #57606a;
+    --color-richie-constant: #0550ae;
+    --color-richie-constant-other-reference-link: #0a3069;
+    --color-richie-entity: #6639ba;
+    --color-richie-storage-modifier-import: #24292f;
+    --color-richie-entity-tag: #0550ae;
+    --color-richie-keyword: #cf222e;
+    --color-richie-string: #0a3069;
+    --color-richie-variable: #953800;
+    --color-richie-brackethighlighter-unmatched: #82071e;
+    --color-richie-brackethighlighter-angle: #57606a;
+    --color-richie-invalid-illegal-text: #f6f8fa;
+    --color-richie-invalid-illegal-bg: #82071e;
+    --color-richie-carriage-return-text: #f6f8fa;
+    --color-richie-carriage-return-bg: #cf222e;
+    --color-richie-string-regexp: #116329;
+    --color-richie-markup-list: #3b2300;
+    --color-richie-markup-heading: #0550ae;
+    --color-richie-markup-italic: #24292f;
+    --color-richie-markup-bold: #24292f;
+    --color-richie-markup-deleted-text: #82071e;
+    --color-richie-markup-deleted-bg: #ffebe9;
+    --color-richie-markup-inserted-text: #116329;
+    --color-richie-markup-inserted-bg: #dafbe1;
+    --color-richie-markup-changed-text: #953800;
+    --color-richie-markup-changed-bg: #ffd8b5;
+    --color-richie-markup-ignored-text: #eaeef2;
+    --color-richie-markup-ignored-bg: #0550ae;
+    --color-richie-meta-diff-range: #8250df;
+    --color-richie-sublimelinter-gutter-mark: #8c959f;
+}
+
+.dark {
+    --color-richie-comment: #8b949e;
+    --color-richie-constant: #79c0ff;
+    --color-richie-constant-other-reference-link: #0a3069;
+    --color-richie-entity: #d2a8ff;
+    --color-richie-storage-modifier-import: #c9d1d9;
+    --color-richie-entity-tag: #7ee787;
+    --color-richie-keyword: #ff7b72;
+    --color-richie-string: #a5d6ff;
+    --color-richie-variable: #ffa657;
+    --color-richie-brackethighlighter-unmatched: #82071e;
+    --color-richie-brackethighlighter-angle: #57606a;
+    --color-richie-invalid-illegal-text: #f6f8fa;
+    --color-richie-invalid-illegal-bg: #82071e;
+    --color-richie-carriage-return-text: #f6f8fa;
+    --color-richie-carriage-return-bg: #cf222e;
+    --color-richie-string-regexp: #116329;
+    --color-richie-markup-list: #f2cc60;
+    --color-richie-markup-heading: #1f6feb;
+    --color-richie-markup-italic: #c9d1d9;
+    --color-richie-markup-bold: #c9d1d9;
+    --color-richie-markup-deleted-text: #ffdcd7;
+    --color-richie-markup-deleted-bg: #67060c;
+    --color-richie-markup-inserted-text: #aff5b4;
+    --color-richie-markup-inserted-bg: #033a16;
+    --color-richie-markup-changed-text: #953800;
+    --color-richie-markup-changed-bg: #ffd8b5;
+    --color-richie-markup-ignored-text: #eaeef2;
+    --color-richie-markup-ignored-bg: #0550ae;
+    --color-richie-meta-diff-range: #8250df;
+    --color-richie-sublimelinter-gutter-mark: #8c959f;
+}
+
+.tiptap pre {
+    color: #24292e;
+    background: rgba(var(--gray-100), 1);
+    font-family: theme('fontFamily.mono'), monospace;
+}
+
+.dark .tiptap pre {
+    color: #c9d1d9;
+    background: rgba(var(--gray-800), 1);
+    font-family: theme('fontFamily.mono'), monospace;
+}
+
+.tiptap code {
+    .hljs-doctag,
+    .hljs-keyword,
+    .hljs-meta .hljs-keyword,
+    .hljs-template-tag,
+    .hljs-template-variable,
+    .hljs-type,
+    .hljs-variable.language_ {
+        color: var(--color-richie-keyword);
+    }
+
+    .hljs-title,
+    .hljs-title.class_,
+    .hljs-title.class_.inherited__,
+    .hljs-title.function_ {
+        color: var(--color-richie-entity);
+    }
+
+    .hljs-attr,
+    .hljs-attribute,
+    .hljs-literal,
+    .hljs-meta,
+    .hljs-number,
+    .hljs-operator,
+    .hljs-variable,
+    .hljs-selector-attr,
+    .hljs-selector-class,
+    .hljs-selector-id {
+        color: var(--color-richie-constant);
+    }
+
+    .hljs-regexp,
+    .hljs-string,
+    .hljs-meta .hljs-string {
+        color: var(--color-richie-string);
+    }
+
+    .hljs-built_in,
+    .hljs-symbol {
+        color: var(--color-richie-variable);
+    }
+
+    .hljs-comment,
+    .hljs-code,
+    .hljs-formula {
+        color: var(--color-richie-comment);
+    }
+
+    .hljs-name,
+    .hljs-quote,
+    .hljs-selector-tag,
+    .hljs-selector-pseudo {
+        color: var(--color-richie-entity-tag);
+    }
+
+    .hljs-subst {
+        color: var(--color-richie-storage-modifier-import);
+    }
+
+    .hljs-section {
+        color: var(--color-richie-markup-heading);
+        font-weight: bold;
+    }
+
+    .hljs-bullet {
+        color: var(--color-richie-markup-list);
+    }
+
+    .hljs-emphasis {
+        color: var(--color-richie-markup-italic);
+        font-style: italic;
+    }
+
+    .hljs-strong {
+        color: var(--color-richie-markup-bold);
+        font-weight: bold;
+    }
+
+    .hljs-addition {
+        color: var(--color-richie-markup-inserted-text);
+        background-color: var(--color-richie-markup-inserted-bg);
+    }
+
+    .hljs-deletion {
+        color: var(--color-richie-markup-deleted-text);
+        background-color: var(--color-richie-markup-deleted-bg);
+    }
+
+    .hljs-char.escape_,
+    .hljs-link,
+    .hljs-params,
+    .hljs-property,
+    .hljs-punctuation,
+    .hljs-tag {
+        /* purposely ignored */
+    }
+}
