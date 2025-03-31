@@ -2,7 +2,6 @@
 
 namespace Awcodes\Richie\Support;
 
-use Awcodes\Richie\Enums\ContentType;
 use Awcodes\Richie\Facades\Richie;
 use Closure;
 use Filament\Support\Concerns\EvaluatesClosures;
