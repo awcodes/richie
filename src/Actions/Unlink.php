@@ -14,8 +14,6 @@ class Unlink extends RichieAction
             ->label(fn () => trans('richie::richie.link.remove'))
             ->icon(icon: 'richie-unlink')
             ->iconButton()
-            ->alpineClickHandler(function () {
-                return "editor().chain().extendMarkRange('link').unsetLink().selectTextblockEnd().run()";
-            });
+            ->alpineClickHandler(fn (): string => "editor().chain().extendMarkRange('link').unsetLink().selectTextblockEnd().run()");
     }
 }

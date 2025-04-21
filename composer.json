@@ -63,8 +63,8 @@
         "test:types": "phpstan analyse",
         "test:unit": "pest",
         "test": [
-            "@test:lint",
             "@test:refactor",
+            "@test:lint",
             "@test:types",
             "@test:unit"
         ]

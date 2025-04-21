@@ -62,7 +62,7 @@ class RichieEditor extends Field
             $livewire->validateOnly($component->getStatePath());
         });
 
-        $this->dehydrateStateUsing(function ($state) {
+        $this->dehydrateStateUsing(function ($state): ?array {
             if (! $state) {
                 return null;
             }
@@ -89,18 +89,14 @@ class RichieEditor extends Field
     public function getActionsToRegister(): array
     {
         return $this->getAllActions()
-            ->map(function ($action) {
-                return fn (): Action => $action;
-            })
+            ->map(fn ($action): \Closure => fn (): Action => $action)
             ->toArray();
     }
 
     public function getAllowedExtensions(): array
     {
         return $this->getAllActions()
-            ->map(function ($action) {
-                return $action->getJsExtension();
-            })
+            ->map(fn ($action) => $action->getJsExtension())
             ->unique()
             ->toArray();
     }

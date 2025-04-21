@@ -45,16 +45,14 @@ trait HasSuggestions
     public function getSuggestionsForTiptap(): array
     {
         return collect($this->getSuggestions())
-            ->map(function (RichieAction $suggestion) {
-                return [
-                    'name' => $suggestion->getName() ?? 'group',
-                    'label' => $suggestion->getLabel(),
-                    'icon' => Blade::render("@svg('{$suggestion->getIcon()}', 'w-5 h-5')"),
-                    'actionType' => $suggestion->getCommandName() ? 'alpine' : null,
-                    'commandName' => $suggestion->getCommandName(),
-                    'commandAttributes' => $suggestion->getCommandAttributes(),
-                ];
-            })->toArray();
+            ->map(fn (RichieAction $suggestion): array => [
+                'name' => $suggestion->getName() ?? 'group',
+                'label' => $suggestion->getLabel(),
+                'icon' => Blade::render("@svg('{$suggestion->getIcon()}', 'w-5 h-5')"),
+                'actionType' => in_array($suggestion->getCommandName(), [null, '', '0'], true) ? null : 'alpine',
+                'commandName' => $suggestion->getCommandName(),
+                'commandAttributes' => $suggestion->getCommandAttributes(),
+            ])->toArray();
     }
 
     /**

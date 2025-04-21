@@ -19,10 +19,8 @@ class Ids extends Extension
                 'attributes' => [
                     'id' => [
                         'default' => null,
-                        'parseHTML' => function ($DOMNode) {
-                            return $DOMNode->hasAttribute('id') ? $DOMNode->getAttribute('id') : null;
-                        },
-                        'renderHTML' => function ($attributes) {
+                        'parseHTML' => fn ($DOMNode) => $DOMNode->hasAttribute('id') ? $DOMNode->getAttribute('id') : null,
+                        'renderHTML' => function ($attributes): ?array {
                             if (! property_exists($attributes, 'id')) {
                                 return null;
                             }

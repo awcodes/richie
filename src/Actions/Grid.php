@@ -67,7 +67,7 @@ class Grid extends RichieAction
                             ->minValue(1)
                             ->maxValue(12)
                             ->numeric()
-                            ->visible(fn (Get $get) => $get('asymmetric')),
+                            ->visible(fn (Get $get): mixed => $get('asymmetric')),
                         Components\TextInput::make('right_span')
                             ->label(fn () => trans('richie::richie.grid.right_span'))
                             ->required()
@@ -75,7 +75,7 @@ class Grid extends RichieAction
                             ->minValue(1)
                             ->maxValue(12)
                             ->numeric()
-                            ->visible(fn (Get $get) => $get('asymmetric')),
+                            ->visible(fn (Get $get): mixed => $get('asymmetric')),
                     ]),
             ])
             ->action(function (RichieEditor $component, array $arguments, array $data): void {

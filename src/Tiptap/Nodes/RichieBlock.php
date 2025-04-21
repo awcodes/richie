@@ -29,9 +29,7 @@ class RichieBlock extends Node
         return [
             [
                 'tag' => 'richie-block',
-                'getAttrs' => function ($DOMNode) {
-                    return json_decode($DOMNode->nodeValue, true);
-                },
+                'getAttrs' => fn ($DOMNode): mixed => json_decode((string) $DOMNode->nodeValue, true),
             ],
         ];
     }

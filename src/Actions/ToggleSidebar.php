@@ -16,9 +16,7 @@ class ToggleSidebar extends RichieAction
             ->icon(icon: 'richie-sidebar')
             ->iconButton()
             ->alpineClickHandler('toggleSidebar($event)')
-            ->visible(function (RichieEditor $component) {
-                return (! $component->isSidebarHidden()) &&
-                (! $component->isDisabled()) && (filled($component->getMergeTags()) || filled($component->getSidebarActions()));
-            });
+            ->visible(fn (RichieEditor $component): bool => (! $component->isSidebarHidden()) &&
+            (! $component->isDisabled()) && (filled($component->getMergeTags()) || filled($component->getSidebarActions())));
     }
 }

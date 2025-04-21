@@ -13,7 +13,7 @@ class Mentions extends Node
     {
         return [
             'HTMLAttributes' => [],
-            'renderLabel' => fn ($node) => '@' . $node->attrs->id,
+            'renderLabel' => fn ($node): string => '@' . $node->attrs->id,
         ];
     }
 
@@ -31,7 +31,7 @@ class Mentions extends Node
         return [
             'id' => [
                 'parseHTML' => fn ($DOMNode) => $DOMNode->getAttribute('data-id') ?: null,
-                'renderHTML' => fn ($attributes) => ['data-id' => $attributes->id ?? null],
+                'renderHTML' => fn ($attributes): array => ['data-id' => $attributes->id ?? null],
             ],
         ];
     }

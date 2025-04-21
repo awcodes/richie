@@ -28,18 +28,14 @@ class Media extends BaseImage
             ],
             'lazy' => [
                 'default' => false,
-                'parseHTML' => function ($DOMNode) {
-                    return $DOMNode->hasAttribute('loading') && $DOMNode->getAttribute('loading') === 'lazy';
-                },
-                'renderHTML' => function ($attributes) {
-                    return $attributes->lazy
-                        ? ['loading' => 'lazy']
-                        : null;
-                },
+                'parseHTML' => fn ($DOMNode): bool => $DOMNode->hasAttribute('loading') && $DOMNode->getAttribute('loading') === 'lazy',
+                'renderHTML' => fn ($attributes): ?array => $attributes->lazy
+                    ? ['loading' => 'lazy']
+                    : null,
             ],
             'alignment' => [
                 'default' => false,
-                'renderHTML' => function ($attributes) {
+                'renderHTML' => function ($attributes): array {
                     $style = match ($attributes->alignment) {
                         'center' => 'margin-inline: auto;',
                         'end' => 'margin-inline-start: auto;',
@@ -60,7 +56,7 @@ class Media extends BaseImage
             'media' => [
                 'default' => null,
                 'parseHTML' => fn ($DOMNode) => $DOMNode->getAttribute('data-media-id') ?: null,
-                'renderHTML' => function ($attributes) {
+                'renderHTML' => function ($attributes): ?array {
                     if (! property_exists($attributes, 'media')) {
                         return null;
                     }

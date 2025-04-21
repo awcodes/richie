@@ -17,9 +17,7 @@ class HeadingThree extends RichieAction
             ->icon(icon: 'richie-heading-three')
             ->iconButton()
             ->command(name: 'toggleHeading', attributes: ['level' => 3])
-            ->visible(function (RichieEditor $component) {
-                return in_array(3, $component->getHeadingLevels());
-            })
+            ->visible(fn (RichieEditor $component): bool => in_array(3, $component->getHeadingLevels()))
             ->active(name: 'heading', attributes: ['level' => 3])
             ->jsExtension('Heading')
             ->converterExtensions(new HeadingExtension);

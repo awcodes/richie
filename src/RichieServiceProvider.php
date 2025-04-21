@@ -30,7 +30,7 @@ class RichieServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasTranslations()
             ->hasConfigFile()
-            ->hasInstallCommand(function (InstallCommand $command) {
+            ->hasInstallCommand(function (InstallCommand $command): void {
                 $command
                     ->publishConfigFile()
                     ->askToStarRepoOnGitHub('awcodes/richie');
@@ -47,15 +47,13 @@ class RichieServiceProvider extends PackageServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/richie-icons.php', 'richie-icons');
 
-        $this->callAfterResolving(Factory::class, function (Factory $factory, Container $container) {
+        $this->callAfterResolving(Factory::class, function (Factory $factory, Container $container): void {
             $config = $container->make('config')->get('richie-icons', []);
 
             $factory->add('richie', array_merge(['path' => __DIR__ . '/../resources/svg'], $config));
         });
 
-        $this->app->singleton(RichieManager::class, function () {
-            return new RichieManager;
-        });
+        $this->app->singleton(RichieManager::class, fn (): \Awcodes\Richie\RichieManager => new RichieManager);
     }
 
     /**
@@ -82,7 +80,7 @@ class RichieServiceProvider extends PackageServiceProvider
                 for: 'Awcodes\\Richie\\Actions'
             );
 
-        Blade::directive('richie', fn ($expression) => "<?php echo richie({$expression})->toHtml(); ?>");
+        Blade::directive('richie', fn ($expression): string => "<?php echo richie({$expression})->toHtml(); ?>");
 
         Testable::mixin(new TestsRichie);
     }

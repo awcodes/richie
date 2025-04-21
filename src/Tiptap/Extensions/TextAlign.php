@@ -26,12 +26,10 @@ class TextAlign extends Extension
                 'attributes' => [
                     'textAlign' => [
                         'default' => $this->options['defaultAlignment'],
-                        'parseHTML' => function ($DOMNode) {
-                            return InlineStyle::getAttribute($DOMNode, 'text-align') ?? $this->options['defaultAlignment'];
-                        },
-                        'renderHTML' => function ($attributes) {
+                        'parseHTML' => fn ($DOMNode) => InlineStyle::getAttribute($DOMNode, 'text-align') ?? $this->options['defaultAlignment'],
+                        'renderHTML' => function ($attributes): ?array {
                             if (
-                                property_exists($attributes, 'style') && str_contains($attributes->style, 'text-align')
+                                property_exists($attributes, 'style') && str_contains((string) $attributes->style, 'text-align')
                                 || $attributes->textAlign === $this->options['defaultAlignment']
                             ) {
                                 return null;

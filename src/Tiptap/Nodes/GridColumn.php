@@ -23,10 +23,8 @@ class GridColumn extends Node
         return [
             'data-col-span' => [
                 'default' => '1',
-                'parseHTML' => function ($DOMNode) {
-                    return $DOMNode->getAttribute('data-col-span');
-                },
-                'renderHTML' => function ($attributes) {
+                'parseHTML' => fn ($DOMNode) => $DOMNode->getAttribute('data-col-span'),
+                'renderHTML' => function ($attributes): array {
                     $attributes = (array) $attributes;
 
                     return [
@@ -43,9 +41,7 @@ class GridColumn extends Node
         return [
             [
                 'tag' => 'div',
-                'getAttrs' => function ($DOMNode) {
-                    return str_contains($DOMNode->getAttribute('class'), 'richie-grid-column');
-                },
+                'getAttrs' => fn ($DOMNode): bool => str_contains((string) $DOMNode->getAttribute('class'), 'richie-grid-column'),
             ],
         ];
     }

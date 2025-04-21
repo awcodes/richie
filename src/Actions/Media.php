@@ -35,67 +35,65 @@ class Media extends RichieAction
 
                 return $arguments;
             })
-            ->form(function (RichieEditor $component) {
-                return [
-                    Components\Grid::make()
-                        ->schema([
+            ->form(fn (RichieEditor $component): array => [
+                Components\Grid::make()
+                    ->schema([
+                        Components\Group::make([
+                            $component->getUploader(),
+                        ])->columnSpan(1),
+                        Components\Group::make([
+                            Components\TextInput::make('link_text')
+                                ->label(fn () => trans('richie::richie.media.link_text'))
+                                ->required()
+                                ->visible(fn (Get $get): bool => $get('type') == 'document'),
+                            Components\TextInput::make('alt')
+                                ->label(fn () => trans('richie::richie.media.alt'))
+                                ->hidden(fn (Get $get): bool => $get('type') == 'document')
+                                ->hintAction(
+                                    Action::make('alt_hint_action')
+                                        ->label('?')
+                                        ->color('primary')
+                                        ->tooltip('Learn how to describe the purpose of the image.')
+                                        ->url('https://www.w3.org/WAI/tutorials/images/decision-tree', true)
+                                ),
+                            Components\TextInput::make('title')
+                                ->label(fn () => trans('richie::richie.media.title')),
                             Components\Group::make([
-                                $component->getUploader(),
-                            ])->columnSpan(1),
-                            Components\Group::make([
-                                Components\TextInput::make('link_text')
-                                    ->label(fn () => trans('richie::richie.media.link_text'))
-                                    ->required()
-                                    ->visible(fn (Get $get) => $get('type') == 'document'),
-                                Components\TextInput::make('alt')
-                                    ->label(fn () => trans('richie::richie.media.alt'))
-                                    ->hidden(fn (Get $get) => $get('type') == 'document')
-                                    ->hintAction(
-                                        Action::make('alt_hint_action')
-                                            ->label('?')
-                                            ->color('primary')
-                                            ->tooltip('Learn how to describe the purpose of the image.')
-                                            ->url('https://www.w3.org/WAI/tutorials/images/decision-tree', true)
-                                    ),
-                                Components\TextInput::make('title')
-                                    ->label(fn () => trans('richie::richie.media.title')),
-                                Components\Group::make([
-                                    Components\TextInput::make('width')
-                                        ->label(fn () => trans('richie::richie.media.width')),
-                                    Components\TextInput::make('height')
-                                        ->label(fn () => trans('richie::richie.media.height')),
-                                ])->columns()->hidden(fn (Get $get) => $get('type') == 'document'),
-                                Components\ToggleButtons::make('alignment')
-                                    ->label(fn () => trans('richie::richie.media.alignment.label'))
-                                    ->options([
-                                        'start' => trans('richie::richie.media.alignment.start'),
-                                        'center' => trans('richie::richie.media.alignment.center'),
-                                        'end' => trans('richie::richie.media.alignment.end'),
-                                    ])
-                                    ->grouped()
-                                    ->afterStateHydrated(function (Components\ToggleButtons $component, $state) {
-                                        if (! $state) {
-                                            $component->state('start');
-                                        }
-                                    }),
-                                Components\Checkbox::make('loading')
-                                    ->label(fn () => trans('richie::richie.media.loading'))
-                                    ->dehydrateStateUsing(function ($state): ?string {
-                                        if ($state) {
-                                            return 'lazy';
-                                        }
+                                Components\TextInput::make('width')
+                                    ->label(fn () => trans('richie::richie.media.width')),
+                                Components\TextInput::make('height')
+                                    ->label(fn () => trans('richie::richie.media.height')),
+                            ])->columns()->hidden(fn (Get $get): bool => $get('type') == 'document'),
+                            Components\ToggleButtons::make('alignment')
+                                ->label(fn () => trans('richie::richie.media.alignment.label'))
+                                ->options([
+                                    'start' => trans('richie::richie.media.alignment.start'),
+                                    'center' => trans('richie::richie.media.alignment.center'),
+                                    'end' => trans('richie::richie.media.alignment.end'),
+                                ])
+                                ->grouped()
+                                ->afterStateHydrated(function (Components\ToggleButtons $component, $state): void {
+                                    if (! $state) {
+                                        $component->state('start');
+                                    }
+                                }),
+                            Components\Checkbox::make('loading')
+                                ->label(fn () => trans('richie::richie.media.loading'))
+                                ->dehydrateStateUsing(function ($state): ?string {
+                                    if ($state) {
+                                        return 'lazy';
+                                    }
 
-                                        return null;
-                                    })
-                                    ->hidden(fn (Get $get) => $get('type') == 'document'),
-                            ])->columnSpan(1),
-                        ]),
-                    Components\Hidden::make('type')
-                        ->default('document'),
-                ];
-            })
+                                    return null;
+                                })
+                                ->hidden(fn (Get $get): bool => $get('type') == 'document'),
+                        ])->columnSpan(1),
+                    ]),
+                Components\Hidden::make('type')
+                    ->default('document'),
+            ])
             ->action(function (RichieEditor $component, array $arguments, array $data): void {
-                $source = str_starts_with($data['src'], 'http')
+                $source = str_starts_with((string) $data['src'], 'http')
                     ? $data['src']
                     : Storage::disk($component->getUploader()->getDiskName())->url($data['src']);
 

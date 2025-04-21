@@ -43,7 +43,7 @@ class Faker
     public function paragraphs(int $count = 1, bool $withRandomLinks = false): static
     {
         if ($withRandomLinks) {
-            $this->output .= '<p>' . collect($this->faker->paragraphs($count))->map(function ($paragraph) {
+            $this->output .= '<p>' . collect($this->faker->paragraphs($count))->map(function ($paragraph): string {
                 $pos = mt_rand(3, strlen($paragraph));
 
                 $start = substr($paragraph, 0, $pos);
@@ -90,7 +90,7 @@ class Faker
 
     public function image(?string $source = null, ?int $width = 640, ?int $height = 480): static
     {
-        if (! $source) {
+        if ($source === null || $source === '' || $source === '0') {
             $source = $this->faker->imageUrl($width, $height);
         }
 
@@ -143,7 +143,7 @@ class Faker
 
     public function blockquote(): static
     {
-        $this->output .= '<blockquote>' . '<p>' . $this->faker->paragraph() . '</p>' . '</blockquote>';
+        $this->output .= '<blockquote><p>' . $this->faker->paragraph() . '</p>' . '</blockquote>';
 
         return $this;
     }
@@ -164,7 +164,7 @@ class Faker
 
     public function table(?int $cols = null): static
     {
-        $cols = $cols ?? mt_rand(3, 8);
+        $cols ??= mt_rand(3, 8);
 
         $this->output .= '<table><thead><tr><th>' . collect($this->faker->words($cols))->implode('</th><th>') . '</th></tr></thead><tbody><tr><td>' . collect($this->faker->words($cols))->implode('</td><td>') . '</td></tr><tr><td>' . collect($this->faker->words($cols))->implode('</td><td>') . '</td></tr></tbody></table>';
 

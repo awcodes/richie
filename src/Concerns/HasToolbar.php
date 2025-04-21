@@ -29,7 +29,7 @@ trait HasToolbar
     {
         $flatActions = [];
 
-        collect($this->getToolbar())->each(function ($action) use (&$flatActions) {
+        collect($this->getToolbar())->each(function ($action) use (&$flatActions): void {
             if (is_subclass_of($action, ActionGroup::class)) {
                 foreach ($action->getActions() as $action) {
                     $flatActions[] = $action;

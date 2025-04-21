@@ -23,9 +23,7 @@ class Lead extends Node
         return [
             [
                 'tag' => 'div',
-                'getAttrs' => function ($DOMNode) {
-                    return str_contains($DOMNode->getAttribute('class'), 'lead');
-                },
+                'getAttrs' => fn ($DOMNode): bool => str_contains((string) $DOMNode->getAttribute('class'), 'lead'),
             ],
         ];
     }

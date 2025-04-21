@@ -41,7 +41,7 @@ class RichieAction extends Action
     {
         return array_merge(
             parent::getExtraAttributes(),
-            $this->getActive() ? ['x-bind:class' => '{ \'is-active\': isActive(' . $this->getActive() . ', updatedAt)}'] : [],
+            in_array($this->getActive(), [null, '', '0'], true) ? [] : ['x-bind:class' => '{ \'is-active\': isActive(' . $this->getActive() . ', updatedAt)}'],
         );
     }
 
@@ -76,11 +76,7 @@ class RichieAction extends Action
         if ($this->hasTiptapCommands()) {
             $attributes = $this->getCommandAttributes();
 
-            if ($attributes && is_array($attributes)) {
-                $attributes = Js::from($attributes);
-            } else {
-                $attributes = '"' . $attributes . '"';
-            }
+            $attributes = $attributes && is_array($attributes) ? Js::from($attributes) : '"' . $attributes . '"';
 
             $handler = 'handleCommand("' . $this->getCommandName() . '", ' . $attributes . ')';
 

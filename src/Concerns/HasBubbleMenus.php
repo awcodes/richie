@@ -25,7 +25,7 @@ trait HasBubbleMenus
         $flatActions = [];
 
         collect($this->getBubbleMenus())
-            ->each(function ($action) use (&$flatActions) {
+            ->each(function ($action) use (&$flatActions): void {
                 foreach ($action->getActions() as $action) {
                     $flatActions[] = $action;
                 }

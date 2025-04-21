@@ -24,12 +24,10 @@ class Color extends Extension
                 'attributes' => [
                     'color' => [
                         'default' => null,
-                        'parseHTML' => function ($DOMNode) {
-                            return InlineStyle::getAttribute($DOMNode, 'color') ?? false;
-                        },
-                        'renderHTML' => function ($attributes) {
+                        'parseHTML' => fn ($DOMNode): string | false => InlineStyle::getAttribute($DOMNode, 'color') ?? false,
+                        'renderHTML' => function ($attributes): ?array {
                             if (
-                                (property_exists($attributes, 'style') && str_contains($attributes->style, 'color')) ||
+                                (property_exists($attributes, 'style') && str_contains((string) $attributes->style, 'color')) ||
                                 (! property_exists($attributes, 'color') || ! $attributes->color)
                             ) {
                                 return null;

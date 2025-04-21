@@ -26,14 +26,10 @@ class Image extends BaseImage
             ],
             'lazy' => [
                 'default' => false,
-                'parseHTML' => function ($DOMNode) {
-                    return $DOMNode->hasAttribute('loading') && $DOMNode->getAttribute('loading') === 'lazy';
-                },
-                'renderHTML' => function ($attributes) {
-                    return $attributes->lazy
-                        ? ['loading' => 'lazy']
-                        : null;
-                },
+                'parseHTML' => fn ($DOMNode): bool => $DOMNode->hasAttribute('loading') && $DOMNode->getAttribute('loading') === 'lazy',
+                'renderHTML' => fn ($attributes): ?array => $attributes->lazy
+                    ? ['loading' => 'lazy']
+                    : null,
             ],
         ];
     }

@@ -27,9 +27,9 @@ trait InteractsWithTiptap
     {
         if ($name && filled($attributes)) {
             $string = "'{$name}', " . Js::from($attributes);
-        } elseif (! $name && filled($attributes)) {
+        } elseif (($name === null || $name === '' || $name === '0') && filled($attributes)) {
             $string = Js::from($attributes);
-        } elseif ($name && empty($attributes)) {
+        } elseif ($name && ($attributes === '' || $attributes === '0' || $attributes === [])) {
             $string = "'{$name}'";
         } else {
             $string = null;
@@ -65,7 +65,11 @@ trait InteractsWithTiptap
 
     public function hasTiptapCommands(): bool
     {
-        return $this->evaluate($this->commandName) || $this->evaluate($this->commandAttributes);
+        if ($this->evaluate($this->commandName)) {
+            return true;
+        }
+
+        return (bool) $this->evaluate($this->commandAttributes);
     }
 
     public function jsExtension(string $extension): static

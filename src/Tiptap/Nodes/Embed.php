@@ -25,15 +25,11 @@ class Embed extends Node
         return [
             'style' => [
                 'default' => null,
-                'parseHTML' => function ($DOMNode) {
-                    return $DOMNode->firstChild->getAttribute('style');
-                },
+                'parseHTML' => fn ($DOMNode) => $DOMNode->firstChild->getAttribute('style'),
             ],
             'src' => [
                 'default' => null,
-                'parseHTML' => function ($DOMNode) {
-                    return $DOMNode->firstChild->getAttribute('src');
-                },
+                'parseHTML' => fn ($DOMNode) => $DOMNode->firstChild->getAttribute('src'),
             ],
             'allowfullscreen' => [
                 'default' => $this->options['allowFullscreen'],
@@ -41,33 +37,23 @@ class Embed extends Node
             ],
             'width' => [
                 'default' => $this->options['width'],
-                'parseHTML' => function ($DOMNode) {
-                    return $DOMNode->firstChild->getAttribute('width');
-                },
+                'parseHTML' => fn ($DOMNode) => $DOMNode->firstChild->getAttribute('width'),
             ],
             'height' => [
                 'default' => $this->options['height'],
-                'parseHTML' => function ($DOMNode) {
-                    return $DOMNode->firstChild->getAttribute('height');
-                },
+                'parseHTML' => fn ($DOMNode) => $DOMNode->firstChild->getAttribute('height'),
             ],
             'responsive' => [
                 'default' => true,
-                'parseHTML' => function ($DOMNode) {
-                    return str_contains($DOMNode->getAttribute('class'), 'responsive');
-                },
+                'parseHTML' => fn ($DOMNode): bool => str_contains((string) $DOMNode->getAttribute('class'), 'responsive'),
             ],
             'data-aspect-width' => [
                 'default' => null,
-                'parseHTML' => function ($DOMNode) {
-                    return $DOMNode->firstChild->getAttribute('width');
-                },
+                'parseHTML' => fn ($DOMNode) => $DOMNode->firstChild->getAttribute('width'),
             ],
             'data-aspect-height' => [
                 'default' => null,
-                'parseHTML' => function ($DOMNode) {
-                    return $DOMNode->firstChild->getAttribute('height');
-                },
+                'parseHTML' => fn ($DOMNode) => $DOMNode->firstChild->getAttribute('height'),
             ],
         ];
     }

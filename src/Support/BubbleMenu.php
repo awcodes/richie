@@ -35,7 +35,7 @@ class BubbleMenu extends ActionGroup
     public function getActions(): array
     {
         return array_map(
-            fn (StaticAction | ActionGroup $action) => $action->defaultView($action::GROUPED_VIEW)->iconButton(),
+            fn (StaticAction | ActionGroup $action): \Filament\Actions\StaticAction | \Filament\Actions\ActionGroup => $action->defaultView($action::GROUPED_VIEW)->iconButton(),
             $this->actions,
         );
     }

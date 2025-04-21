@@ -61,16 +61,10 @@ class Converter
     public function getExtensions(): array
     {
         return collect(Richie::getActions())
-            ->filter(function ($action) {
-                return $action->getConverterExtensions();
-            })
-            ->map(function ($action) {
-                return $action->getConverterExtensions();
-            })
+            ->filter(fn ($action) => $action->getConverterExtensions())
+            ->map(fn ($action) => $action->getConverterExtensions())
             ->flatten()
-            ->mapWithKeys(function ($extension) {
-                return [$extension::class => $extension];
-            })
+            ->mapWithKeys(fn ($extension) => [$extension::class => $extension])
             ->unique()
             ->values()
             ->toArray();
@@ -153,7 +147,7 @@ class Converter
 
     public function sanitizeBlocks(Editor $editor): Editor
     {
-        $editor->descendants(function (&$node) {
+        $editor->descendants(function (&$node): void {
             if ($node->type !== 'richieBlock') {
                 return;
             }
@@ -166,7 +160,7 @@ class Converter
 
     public function parseHeadings(Editor $editor, int $maxDepth = 3, bool $wrapHeadings = false): Editor
     {
-        $editor->descendants(function (&$node) use ($maxDepth, $wrapHeadings) {
+        $editor->descendants(function (&$node) use ($maxDepth, $wrapHeadings): void {
             if ($node->type !== 'heading') {
                 return;
             }
@@ -176,15 +170,11 @@ class Converter
             }
 
             if (! property_exists($node->attrs, 'id') || $node->attrs->id === null) {
-                $node->attrs->id = str(collect($node->content)->map(function ($node) {
-                    return $node->text ?? null;
-                })->implode(' '))->slug()->toString();
+                $node->attrs->id = str(collect($node->content)->map(fn ($node) => $node->text ?? null)->implode(' '))->slug()->toString();
             }
 
             if ($wrapHeadings) {
-                $text = str(collect($node->content)->map(function ($node) {
-                    return $node->text ?? null;
-                })->implode(' '))->toString();
+                $text = str(collect($node->content)->map(fn ($node) => $node->text ?? null)->implode(' '))->toString();
 
                 $node->content = [
                     (object) [
@@ -228,9 +218,7 @@ class Converter
         foreach ($content as $node) {
             if ($node['type'] === 'heading') {
                 if ($node['attrs']['level'] <= $maxDepth) {
-                    $text = collect($node['content'])->map(function ($node) {
-                        return $node['text'] ?? null;
-                    })->implode(' ');
+                    $text = collect($node['content'])->map(fn ($node): mixed => $node['text'] ?? null)->implode(' ');
 
                     if (! isset($node['attrs']['id'])) {
                         $node['attrs']['id'] = str($text)->slug()->toString();
@@ -297,14 +285,12 @@ class Converter
             $prev = $item['level'];
         }
 
-        $result .= '</ul>';
-
-        return $result;
+        return $result . '</ul>';
     }
 
     public function parseMergeTags(Editor $editor): Editor
     {
-        $editor->descendants(function (&$node) {
+        $editor->descendants(function (&$node): void {
             if ($node->type !== 'mergeTag') {
                 return;
             }

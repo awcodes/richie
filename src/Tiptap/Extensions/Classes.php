@@ -31,10 +31,8 @@ class Classes extends Extension
                 'attributes' => [
                     'class' => [
                         'default' => null,
-                        'parseHTML' => function ($DOMNode) {
-                            return $DOMNode->hasAttribute('class') ? $DOMNode->getAttribute('class') : null;
-                        },
-                        'renderHTML' => function ($attributes) {
+                        'parseHTML' => fn ($DOMNode) => $DOMNode->hasAttribute('class') ? $DOMNode->getAttribute('class') : null,
+                        'renderHTML' => function ($attributes): ?array {
                             if (! property_exists($attributes, 'class')) {
                                 return null;
                             }

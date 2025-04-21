@@ -19,9 +19,7 @@ class EditLink extends Link
             ->label(fn () => trans('richie::richie.link.edit'))
             ->icon('richie-edit')
             ->active(null)
-            ->fillForm(function (array $arguments) {
-                return $arguments;
-            })
+            ->fillForm(fn (array $arguments): array => $arguments)
             ->action(function (RichieEditor $component, array $arguments, array $data): void {
                 $isSingleCharacterSelection = ($arguments['editorSelection']['head'] ?? null) === ($arguments['editorSelection']['anchor'] ?? null);
 

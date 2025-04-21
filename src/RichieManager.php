@@ -29,7 +29,7 @@ class RichieManager
                     ->start($for . '\\')
                     ->toString()
             )
-            ->filter(fn ($action) => is_subclass_of($action, RichieAction::class))
+            ->filter(fn ($action): bool => is_subclass_of($action, RichieAction::class))
             ->mapWithKeys(function ($action) {
                 $action = $action::make(class_basename($action));
 

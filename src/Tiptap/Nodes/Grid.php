@@ -23,16 +23,12 @@ class Grid extends Node
         return [
             'data-type' => [
                 'default' => 'symmetric',
-                'parseHTML' => function ($DOMNode) {
-                    return $DOMNode->getAttribute('data-type');
-                },
+                'parseHTML' => fn ($DOMNode) => $DOMNode->getAttribute('data-type'),
             ],
             'data-columns' => [
                 'default' => '2',
-                'parseHTML' => function ($DOMNode) {
-                    return $DOMNode->getAttribute('data-columns');
-                },
-                'renderHTML' => function ($attributes) {
+                'parseHTML' => fn ($DOMNode) => $DOMNode->getAttribute('data-columns'),
+                'renderHTML' => function ($attributes): array {
                     $attributes = (array) $attributes;
 
                     return [
@@ -43,9 +39,7 @@ class Grid extends Node
             ],
             'data-stack-at' => [
                 'default' => 'md',
-                'parseHTML' => function ($DOMNode) {
-                    return $DOMNode->getAttribute('data-stack-at');
-                },
+                'parseHTML' => fn ($DOMNode) => $DOMNode->getAttribute('data-stack-at'),
             ],
         ];
     }
@@ -55,10 +49,8 @@ class Grid extends Node
         return [
             [
                 'tag' => 'div',
-                'getAttrs' => function ($DOMNode) {
-                    return str_contains($DOMNode->getAttribute('class'), 'richie-grid')
-                        && ! str_contains($DOMNode->getAttribute('class'), '-column');
-                },
+                'getAttrs' => fn ($DOMNode): bool => str_contains((string) $DOMNode->getAttribute('class'), 'richie-grid')
+                    && ! str_contains((string) $DOMNode->getAttribute('class'), '-column'),
             ],
         ];
     }

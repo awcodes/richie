@@ -42,11 +42,9 @@ class Embed extends RichieAction
                     ->hiddenLabel()
                     ->gridDirection('row')
                     ->columns(3)
-                    ->visible(function (Get $get) {
-                        return $get('src');
-                    })
-                    ->options(function (Get $get) {
-                        if (str_contains($get('src'), 'youtu')) {
+                    ->visible(fn (Get $get): mixed => $get('src'))
+                    ->options(function (Get $get): array {
+                        if (str_contains((string) $get('src'), 'youtu')) {
                             return [
                                 'controls' => trans('richie::richie.embed.controls'),
                                 'nocookie' => trans('richie::richie.embed.nocookie'),
@@ -61,29 +59,27 @@ class Embed extends RichieAction
                             'portrait' => trans('richie::richie.embed.portrait'),
                         ];
                     })
-                    ->dehydrateStateUsing(function (Get $get, $state) {
-                        if (str_contains($get('src'), 'youtu')) {
+                    ->dehydrateStateUsing(function (Get $get, $state): array {
+                        if (str_contains((string) $get('src'), 'youtu')) {
                             return [
                                 'controls' => in_array('controls', $state) ? 1 : 0,
                                 'nocookie' => in_array('nocookie', $state) ? 1 : 0,
                             ];
-                        } else {
-                            return [
-                                'autoplay' => in_array('autoplay', $state) ? 1 : 0,
-                                'loop' => in_array('loop', $state) ? 1 : 0,
-                                'title' => in_array('title', $state) ? 1 : 0,
-                                'byline' => in_array('byline', $state) ? 1 : 0,
-                                'portrait' => in_array('portrait', $state) ? 1 : 0,
-                            ];
                         }
+
+                        return [
+                            'autoplay' => in_array('autoplay', $state) ? 1 : 0,
+                            'loop' => in_array('loop', $state) ? 1 : 0,
+                            'title' => in_array('title', $state) ? 1 : 0,
+                            'byline' => in_array('byline', $state) ? 1 : 0,
+                            'portrait' => in_array('portrait', $state) ? 1 : 0,
+                        ];
                     }),
                 TimePicker::make('start_at')
                     ->label(fn () => trans('richie::richie.embed.start_at'))
                     ->live()
                     ->date(false)
-                    ->visible(function (Get $get) {
-                        return str_contains($get('src'), 'youtu');
-                    })
+                    ->visible(fn (Get $get): bool => str_contains((string) $get('src'), 'youtu'))
                     ->afterStateHydrated(function (TimePicker $component, $state): void {
                         if (! $state) {
                             return;
@@ -103,7 +99,7 @@ class Embed extends RichieAction
                     ->default(true)
                     ->live()
                     ->label(fn () => trans('richie::richie.embed.responsive'))
-                    ->afterStateUpdated(function (callable $set, $state) {
+                    ->afterStateUpdated(function (callable $set, $state): void {
                         if ($state) {
                             $set('width', '16');
                             $set('height', '9');

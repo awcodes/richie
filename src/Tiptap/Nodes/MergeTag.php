@@ -21,10 +21,8 @@ class MergeTag extends Node
         return [
             'id' => [
                 'default' => null,
-                'parseHTML' => function ($DOMNode) {
-                    return $DOMNode->getAttribute('data-id');
-                },
-                'renderHTML' => function ($attributes) {
+                'parseHTML' => fn ($DOMNode) => $DOMNode->getAttribute('data-id'),
+                'renderHTML' => function ($attributes): array {
                     if (! $attributes->id) {
                         return [];
                     }

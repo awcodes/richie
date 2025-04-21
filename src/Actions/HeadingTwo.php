@@ -17,9 +17,7 @@ class HeadingTwo extends RichieAction
             ->icon(icon: 'richie-heading-two')
             ->iconButton()
             ->command(name: 'toggleHeading', attributes: ['level' => 2])
-            ->visible(function (RichieEditor $component) {
-                return in_array(2, $component->getHeadingLevels());
-            })
+            ->visible(fn (RichieEditor $component): bool => in_array(2, $component->getHeadingLevels()))
             ->active(name: 'heading', attributes: ['level' => 2])
             ->jsExtension('Heading')
             ->converterExtensions(new HeadingExtension);
