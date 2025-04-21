@@ -6,7 +6,9 @@
         "laravel",
         "filament",
         "filamentphp",
-        "richie"
+        "richie",
+        "rich editor",
+        "wysiwyg"
     ],
     "homepage": "https://github.com/awcodes/richie",
     "support": {
