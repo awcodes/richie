@@ -3,7 +3,7 @@
 }
 
 .richie-wrapper {
-    @apply relative isolate h-full flex flex-col ring-1 ring-gray-950/10 rounded-lg shadow-sm ring-1 transition bg-white dark:ring-white/20 dark:bg-white/5;
+    @apply relative isolate z-[1] h-full flex flex-col ring-gray-950/10 rounded-lg shadow-sm ring-1 transition bg-white dark:ring-white/20 dark:bg-white/5;
 
     &:not(.fullscreen):focus-within {
         @apply ring-2 ring-primary-600 dark:ring-primary-500;

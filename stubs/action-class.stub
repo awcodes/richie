@@ -1,0 +1,39 @@
+<?php
+
+namespace {{ namespace }};
+
+use Awcodes\Richie\RichieAction;
+use Awcodes\Richie\RichieEditor;
+use Awcodes\Richie\Support\EditorCommand;
+
+class {{ class_name }} extends RichieAction
+{
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this
+            ->label('{{ action_label }}')
+            ->icon('heroicon-o-cube-transparent')
+            ->editorView('{{ path }}')
+            ->renderView('{{ path }}')
+            ->fillForm(fn (array $arguments): array => [
+                //
+            ])
+            ->form([
+                //
+            ])
+            ->action(function (RichieEditor $component, array $arguments, array $data) {
+                $component->runCommands([
+                    new EditorCommand(
+                        name: 'insertBlock',
+                        arguments: [[
+                            'identifier' => '{{ class_name }}',
+                            'values' => $data,
+                            'view' => $this->getEditorView($data),
+                        ]],
+                    ),
+                ], editorSelection: $arguments['editorSelection']);
+            });
+    }
+}

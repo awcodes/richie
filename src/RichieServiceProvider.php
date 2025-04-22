@@ -2,7 +2,7 @@
 
 namespace Awcodes\Richie;
 
-use Awcodes\Richie\Testing\TestsRichie;
+use Awcodes\Richie\Commands\MakeActionCommand;
 use BladeUI\Icons\Exceptions\CannotRegisterIconSet;
 use BladeUI\Icons\Factory;
 use Filament\Support\Assets\AlpineComponent;
@@ -12,8 +12,6 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Blade;
-use Livewire\Features\SupportTesting\Testable;
-use ReflectionException;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -30,6 +28,9 @@ class RichieServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasTranslations()
             ->hasConfigFile()
+            ->hasCommands([
+                MakeActionCommand::class,
+            ])
             ->hasInstallCommand(function (InstallCommand $command): void {
                 $command
                     ->publishConfigFile()
@@ -56,9 +57,6 @@ class RichieServiceProvider extends PackageServiceProvider
         $this->app->singleton(RichieManager::class, fn (): \Awcodes\Richie\RichieManager => new RichieManager);
     }
 
-    /**
-     * @throws ReflectionException
-     */
     public function packageBooted(): void
     {
         FilamentAsset::register(
@@ -81,8 +79,6 @@ class RichieServiceProvider extends PackageServiceProvider
             );
 
         Blade::directive('richie', fn ($expression): string => "<?php echo richie({$expression})->toHtml(); ?>");
-
-        Testable::mixin(new TestsRichie);
     }
 
     protected function getAssetPackageName(): ?string

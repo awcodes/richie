@@ -2,6 +2,10 @@
 
 // config for Awcodes/Richie
 return [
+    'generator' => [
+        'namespace' => 'App\\Richie\\Actions',
+        'views_path' => 'richie',
+    ],
     'media' => [
         'accepted_file_types' => ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml', 'application/pdf'],
         'disk' => env('FILAMENT_FILESYSTEM_DISK', 'public'),
