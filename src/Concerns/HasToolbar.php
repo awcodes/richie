@@ -22,24 +22,16 @@ trait HasToolbar
         $this->toolbar = $actions;
         $this->mergeToolbarActions = $merge;
 
+        $flatActions = $this->getFlatToolbarActions();
+
+        $this->registerActions($flatActions);
+
         return $this;
     }
 
     public function getToolbarActions(): array
     {
-        $flatActions = [];
-
-        collect($this->getToolbar())->each(function ($action) use (&$flatActions): void {
-            if (is_subclass_of($action, ActionGroup::class)) {
-                foreach ($action->getActions() as $action) {
-                    $flatActions[] = $action;
-                }
-            } else {
-                $flatActions[] = $action;
-            }
-        });
-
-        return $flatActions;
+        return $this->getFlatToolbarActions();
     }
 
     /**
@@ -102,5 +94,22 @@ trait HasToolbar
                 Actions\AlignJustify::make('AlignJustify'),
             ])->label('Align'),
         ];
+    }
+
+    public function getFlatToolbarActions(): array
+    {
+        $flatActions = [];
+
+        collect($this->getToolbar())->each(function ($action) use (&$flatActions): void {
+            if (is_subclass_of($action, ActionGroup::class)) {
+                foreach ($action->getActions() as $action) {
+                    $flatActions[] = $action;
+                }
+            } else {
+                $flatActions[] = $action;
+            }
+        });
+
+        return $flatActions;
     }
 }

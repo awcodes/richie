@@ -48,9 +48,9 @@ class RichieEditor extends Field
     {
         parent::setUp();
 
-        $this->afterStateHydrated(function (RichieEditor $component, $state) {
-            if (! $state) {
-                return null;
+        $this->afterStateHydrated(function (RichieEditor $component, $state): void {
+            if (blank($state)) {
+                return;
             }
 
             $state = $this->renderBlockViews($state, $component);
@@ -69,8 +69,6 @@ class RichieEditor extends Field
 
             return $this->sanitizeBlocksBeforeSave($state);
         });
-
-        $this->registerListeners([]);
 
         $this->registerActions($this->getActionsToRegister());
     }

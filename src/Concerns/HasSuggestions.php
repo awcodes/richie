@@ -21,6 +21,8 @@ trait HasSuggestions
         $this->suggestions = $actions;
         $this->mergeSuggestionActions = $merge;
 
+        $this->registerActions($actions);
+
         return $this;
     }
 

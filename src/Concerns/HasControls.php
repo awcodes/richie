@@ -17,6 +17,8 @@ trait HasControls
     {
         $this->controls = $actions;
 
+        $this->registerActions($actions);
+
         return $this;
     }
 
