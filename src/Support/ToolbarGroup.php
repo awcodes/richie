@@ -14,7 +14,6 @@ class ToolbarGroup extends ActionGroup
         parent::setUp();
 
         $this
-            ->label('Formatting')
             ->icon('heroicon-s-chevron-down')
             ->iconPosition(IconPosition::After)
             ->color('gray')

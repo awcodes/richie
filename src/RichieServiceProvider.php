@@ -76,6 +76,10 @@ class RichieServiceProvider extends PackageServiceProvider
             ->registerActionPath(
                 in: __DIR__ . '/Actions',
                 for: 'Awcodes\\Richie\\Actions'
+            )
+            ->registerActionPath(
+                in: app_path('Richie/Actions'),
+                for: 'App\\Richie\\Actions',
             );
 
         Blade::directive('richie', fn ($expression): string => "<?php echo richie({$expression})->toHtml(); ?>");

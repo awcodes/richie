@@ -18,6 +18,8 @@ trait HasSidebar
     {
         $this->sidebarActions = $actions;
 
+        $this->registerActions($actions);
+
         return $this;
     }
 
