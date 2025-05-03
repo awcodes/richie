@@ -45,7 +45,7 @@ trait HasMentions
         }
 
         return collect($items)
-            ->map(fn ($item) => $item instanceof MentionItem ? $item->toArray() : $item)
+            ->map(fn ($item): mixed => $item instanceof MentionItem ? $item->toArray() : $item)
             ->toArray();
     }
 
@@ -162,7 +162,7 @@ trait HasMentions
         ]);
 
         if ($results instanceof Arrayable) {
-            $results = $results->toArray();
+            return $results->toArray();
         }
 
         return $results;

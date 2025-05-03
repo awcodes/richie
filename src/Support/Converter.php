@@ -316,7 +316,7 @@ class Converter
 
     public function parseMentionItems(Editor $editor): Editor
     {
-        $editor->descendants(function (&$node) {
+        $editor->descendants(function (&$node): void {
             if ($node->type !== 'mention') {
                 return;
             }

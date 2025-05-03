@@ -40,7 +40,7 @@ class MakeActionCommand extends Command
             ? (string) Str::of($action)->beforeLast('\\')
             : '';
 
-        $fullNamespace = $actionNamespace
+        $fullNamespace = $actionNamespace !== '' && $actionNamespace !== '0'
             ? "{$namespace}\\{$actionNamespace}\\{$className}"
             : "{$namespace}\\{$className}";
 
@@ -50,7 +50,7 @@ class MakeActionCommand extends Command
             ->replace(['-', '_'], ' ')
             ->ucfirst();
 
-        $actionName = Str::of($action)
+        Str::of($action)
             ->explode('\\')
             ->map(fn ($segment) => Str::kebab($segment))
             ->implode('.');
@@ -88,7 +88,7 @@ class MakeActionCommand extends Command
         File::ensureDirectoryExists(dirname($viewPath));
 
         $this->copyStubToApp('action-class', $classPath, [
-            'namespace' => $actionNamespace
+            'namespace' => $actionNamespace !== '' && $actionNamespace !== '0'
                 ? $namespace . '\\' . $actionNamespace
                 : $namespace,
             'class_name' => $className,

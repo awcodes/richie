@@ -48,16 +48,24 @@ it('registers merge tags', function () {
 });
 
 it('registers mentions', function () {
+    $items = [
+        ['label' => 'Batman', 'id' => 1],
+        ['label' => 'Robin', 'id' => 2],
+        ['label' => 'Joker', 'id' => 3],
+        ['label' => 'Poison Ivy', 'id' => 4],
+        ['label' => 'Harley Quinn', 'id' => 5],
+    ];
+
     $field = (new Awcodes\Richie\RichieEditor('content'))
         ->container(ComponentContainer::make(TestForm::make()))
-        ->mentions(['Bruce Banner', 'Tony Stark']);
+        ->mentionItems($items);
 
-    $mentions = $field->getMentions();
+    $mentions = $field->getMentionItems();
 
     expect($mentions)
         ->toBeArray()
-        ->toHaveCount(2)
-        ->toContain('Bruce Banner', 'Tony Stark');
+        ->toHaveCount(5)
+        ->toEqual($items);
 });
 
 it('supports custom document structure', function () {
