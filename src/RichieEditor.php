@@ -42,7 +42,7 @@ class RichieEditor extends Field
 
     protected array | Closure | null $nodePlaceholders = null;
 
-    protected array | bool | null $showOnlyCurrentPlaceholder = false;
+    protected bool | Closure | null $showOnlyCurrentPlaceholder = false;
 
     protected function setUp(): void
     {

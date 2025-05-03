@@ -47,7 +47,7 @@ import CodeBlockLowlight from './extensions/CodeBlock.js'
 import lowlight from "./extensions/Lowlight.js";
 import {Color} from "@tiptap/extension-color";
 import {Highlight} from "@tiptap/extension-highlight";
-import Mentions from './extensions/Mentions.js';
+import Mention from './extensions/Mention/Mention.js';
 import Embed from './extensions/Embed.js';
 import { Selection } from '@tiptap/pm/state'
 
@@ -62,7 +62,6 @@ export default function richie({
     placeholder = null,
     mergeTags = [],
     suggestions = [],
-    mentions = [],
     allowedExtensions = [],
     headingLevels = [1,2,3],
     customDocument = null,
@@ -72,6 +71,15 @@ export default function richie({
     enablePasteRules = true,
     debounce = null,
     linkProtocols = [],
+    mentionItems = null,
+    emptyMentionItemsMessage = '',
+    mentionItemsPlaceholder = null,
+    maxMentionItems = null,
+    mentionTrigger = '@',
+    getMentionItemsUsingEnabled = false,
+    getSearchResultsUsing,
+    mentionDebounce,
+    mentionSearchStrategy,
 }) {
     let editor = null;
 
@@ -312,8 +320,19 @@ export default function richie({
                 coreExtensions.push(MergeTag.configure({mergeTags}))
             }
 
-            if (mentions.length) {
-                coreExtensions.push(Mentions.configure({mentions}))
+            if (mentionItems || getMentionItemsUsingEnabled) {
+                coreExtensions.push(Mention.configure({
+                    mentionItems,
+                    emptyMentionItemsMessage,
+                    mentionItemsPlaceholder,
+                    maxMentionItems,
+                    mentionTrigger,
+                    livewireId,
+                    getMentionItemsUsingEnabled,
+                    getSearchResultsUsing,
+                    mentionDebounce,
+                    mentionSearchStrategy,
+                }))
             }
 
             const defaultExtensions = {

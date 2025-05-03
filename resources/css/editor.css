@@ -248,6 +248,10 @@
                 }
             }
         }
+
+        .mention  {
+            @apply bg-primary-600 bg-opacity-10 text-primary-600 px-1 py-0.5 rounded-md box-decoration-clone;
+        }
     }
 
     .richie-sidebar {

@@ -4,6 +4,14 @@
     $mergeTags = $getMergeTags();
     $sidebarActions = $getSidebarActions();
     $customStyles = $getCustomStyles();
+    $mentionItems = $getMentionItems();
+    $emptyMentionItemsMessage = $getEmptyMentionItemsMessage();
+    $mentionItemsPlaceholder = $getMentionItemsPlaceholder();
+    $getMentionItemsUsingEnabled = $getMentionItemsUsingEnabled();
+    $maxMentionItems = $getMaxMentionItems();
+    $mentionTrigger = $getMentionTrigger();
+    $mentionDebounce = $getMentionDebounce();
+    $mentionSearchStrategy = $getMentionSearchStrategy();
 @endphp
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
     @if ($customStyles)
@@ -28,7 +36,6 @@
             placeholder: @js($getPlaceholder()),
             mergeTags: @js($mergeTags),
             suggestions: @js($getSuggestionsForTiptap()),
-            mentions: @js($getMentions()),
             allowedExtensions: @js($getAllowedExtensions()),
             headingLevels: @js($getHeadingLevels()),
             customDocument: @js($getCustomDocument()),
@@ -37,7 +44,18 @@
             enableInputRules: @js($getEnableInputRules()),
             enablePasteRules: @js($getEnablePasteRules()),
             debounce: @js($getLiveDebounce()),
-            linkProtocols: @js($getLinkProtocols())
+            linkProtocols: @js($getLinkProtocols()),
+            mentionItems: @js($mentionItems),
+            emptyMentionItemsMessage: @js($emptyMentionItemsMessage),
+            mentionItemsPlaceholder: @js($mentionItemsPlaceholder),
+            maxMentionItems: @js($maxMentionItems),
+            mentionTrigger: @js($mentionTrigger),
+            getMentionItemsUsingEnabled: @js($getMentionItemsUsingEnabled),
+            getSearchResultsUsing: async (search) => {
+              return await $wire.getMentionsItems(@js($statePath), search)
+            },
+            mentionDebounce: @js($mentionDebounce),
+            mentionSearchStrategy: @js($mentionSearchStrategy),
         })"
         x-bind:class="{
             'fullscreen': fullscreen,
