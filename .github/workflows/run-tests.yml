@@ -29,9 +29,11 @@ jobs:
           - laravel: 11.*
             testbench: 9.*
             carbon: 3.*
+            collision: ^8.1
           - laravel: 12.*
             testbench: 10.*
             carbon: 3.*
+            collision: ^8.1
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
     steps:
       - name: Checkout Code
