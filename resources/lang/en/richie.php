@@ -90,6 +90,10 @@ return [
         'remove' => 'Remove Media',
         'edit' => 'Edit Media',
     ],
+    'mentions' => [
+        'no_suggestions_found' => 'No results',
+        'suggestions_placeholder' => 'Start typing...',
+    ],
     'ordered_list' => 'Ordered List',
     'paragraph' => 'Paragraph',
     'redo' => 'Redo',

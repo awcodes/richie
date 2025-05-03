@@ -52,7 +52,7 @@ class Converter
                 new \Awcodes\Richie\Tiptap\Nodes\ListItem,
                 new \Awcodes\Richie\Tiptap\Nodes\RichieBlock,
                 new \Awcodes\Richie\Tiptap\Nodes\MergeTag,
-                new \Awcodes\Richie\Tiptap\Nodes\Mentions,
+                new \Awcodes\Richie\Tiptap\Nodes\Mention,
                 ...$this->getExtensions(),
             ],
         ]);
@@ -86,6 +86,8 @@ class Converter
             $this->parseMergeTags($editor);
         }
 
+        $this->parseMentionItems($editor);
+
         /*
          * Temporary fix for Tiptap Serializer bug duplicating code block tags
          */
@@ -105,6 +107,8 @@ class Converter
         if ($toc) {
             $this->parseHeadings($editor, $maxDepth);
         }
+
+        $this->parseMentionItems($editor);
 
         return json_decode($editor->getJSON(), true);
     }
@@ -305,6 +309,24 @@ class Converter
                     ],
                 ];
             }
+        });
+
+        return $editor;
+    }
+
+    public function parseMentionItems(Editor $editor): Editor
+    {
+        $editor->descendants(function (&$node) {
+            if ($node->type !== 'mention') {
+                return;
+            }
+
+            $node->content = [
+                (object) [
+                    'type' => 'text',
+                    'text' => $node->attrs->label ?? $node->attrs->id,
+                ],
+            ];
         });
 
         return $editor;
