@@ -7,6 +7,7 @@
     $mentionItems = $getMentionItems();
     $emptyMentionItemsMessage = $getEmptyMentionItemsMessage();
     $mentionItemsPlaceholder = $getMentionItemsPlaceholder();
+    $mentionItemsLoading = $getMentionItemsLoading();
     $getMentionItemsUsingEnabled = $getMentionItemsUsingEnabled();
     $maxMentionItems = $getMaxMentionItems();
     $mentionTrigger = $getMentionTrigger();
@@ -48,6 +49,7 @@
             mentionItems: @js($mentionItems),
             emptyMentionItemsMessage: @js($emptyMentionItemsMessage),
             mentionItemsPlaceholder: @js($mentionItemsPlaceholder),
+            mentionItemsLoading: @js($mentionItemsLoading),
             maxMentionItems: @js($maxMentionItems),
             mentionTrigger: @js($mentionTrigger),
             getMentionItemsUsingEnabled: @js($getMentionItemsUsingEnabled),

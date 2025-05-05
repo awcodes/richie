@@ -15,6 +15,8 @@ trait HasMentions
 
     protected string | Closure | null $mentionItemsPlaceholder = null;
 
+    protected string | Closure | null $mentionItemsLoading = null;
+
     protected int | Closure | null $maxMentionItems = 8;
 
     protected ?Closure $getMentionItemsUsing = null;
@@ -132,6 +134,18 @@ trait HasMentions
         $this->mentionItemsPlaceholder = $message;
 
         return $this;
+    }
+
+    public function mentionItemsLoading(string | Closure | null $message): static
+    {
+        $this->mentionItemsLoading = $message;
+
+        return $this;
+    }
+
+    public function getMentionItemsLoading(): ?string
+    {
+        return $this->evaluate($this->mentionItemsLoading);
     }
 
     public function getMentionItemsPlaceholder(): ?string
