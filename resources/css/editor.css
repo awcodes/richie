@@ -350,6 +350,18 @@
         .richie-mentions-item {
             @apply block w-full min-w-32 text-left text-gray-900 rounded px-2 py-1 hover:bg-gray-900/20 dark:hover:bg-gray-900/50 dark:text-white;
         }
+
+        .loader {
+            @apply animate-spin size-4 text-white;
+
+            .circle {
+                @apply opacity-25;
+            }
+
+            .path {
+                @apply opacity-75;
+            }
+        }
     }
 
     .richie-merge-tags {

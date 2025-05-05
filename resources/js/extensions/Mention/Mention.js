@@ -153,6 +153,7 @@ export default Mention.extend({
                                 props,
                                 this.options.emptyMentionItemsMessage,
                                 this.options.mentionItemsPlaceholder,
+                                this.options.mentionItemsLoading,
                                 _query
                             )
                             if (!props.clientRect) {
@@ -168,6 +169,7 @@ export default Mention.extend({
                                 interactive: true,
                                 trigger: 'manual',
                                 placement: 'bottom-start',
+                                theme: 'richie-mentions',
                             })
                         },
 
